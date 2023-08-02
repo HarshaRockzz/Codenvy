@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+// Write your function here
+
+int main(){
+    
+    string num;
+    cin>>num;
+
+    cout<< solve(num);
+
+}

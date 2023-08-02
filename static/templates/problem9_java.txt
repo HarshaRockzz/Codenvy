@@ -1,0 +1,18 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+public class Code{
+    // Write your function here
+
+    public static void main(String[] args){
+        Scanner s = new Scanner(System.in);
+
+        String num = s.nextLine();
+
+        System.out.print(solve(num));
+        
+        s.close();
+
+    }
+}
