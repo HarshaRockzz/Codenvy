@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Start{% endblock title %}
+
+{% block navbar %}
+
+<form method="get" action="/home" class="d-flex">
+  <input class="form-control me-2 my-2" type="email" id="email" name="email" placeholder="Email" aria-label="Email" style="width: 164px;">
+  <input class="form-control me-2 my-2" type="password" id="password" name="password" placeholder="Password" aria-label="Password" style="width: 164px;">
+  <button class="btn btn-outline-success mx-1 my-2 px-1 py-2" type="submit" style="width: 80px;">Sign in</button>
+</form>
+  
+{% endblock navbar %}
+
+
+{% block body %}
+
+<table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Name</th>
+        <th scope="col">Problems Solved</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for item in user %}
+        
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ item.name }}</td>
+            <td>{{ item.problems_solved }}</td>
+          </tr>
+        
+        {% endfor %}
+     
+    </tbody>
+  </table>
+
+{% endblock body %}
+

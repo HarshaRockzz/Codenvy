@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block account %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ user.name }}
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <li><a class="dropdown-item" href="#">Rank : {{ rank }}</a></li>
+      <li><a class="dropdown-item" href="/submissions/{{ user.username }}">My Submissions</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="/">Logout</a></li>
+    </ul>
+  </li>
+{% endblock account %}
+
+{% block problems %}
+<li class="nav-item">
+  <a class="nav-link" href="/problems/{{ user.username }}">Problems</a>
+</li>
+{% endblock problems %}
+
+{% block navbar %}
+  <form class="d-flex" method="post" action="/problem_search/{{ user.username }}">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+{% endblock navbar %}
+
+
+{% block body %}
+
+<table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">S.No.</th>
+        <th scope="col">Name</th>
+        <th scope="col dropdown">
+                <a class="nav-link dropdown-toggle px-0 py-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                  Topic
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/problems/{{ user.username }}">All</a>
+                    {% for item in types %}
+                        <a class="dropdown-item" href="/problems/{{ user.username }}/type/{{ item.type }}">{{ item.type }}</a>
+                    {% endfor %}
+                </ul>
+        </th>
+        <th scope="col">
+            <a class="nav-link dropdown-toggle px-0 py-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white">
+                Difficuilty
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/problems/{{ user.username }}">All</a>
+                <a class="dropdown-item" href="/problems/{{ user.username }}/difficuilty/Easy">Easy</a>
+                <a class="dropdown-item" href="/problems/{{ user.username }}/difficuilty/Medium">Medium</a>
+                <a class="dropdown-item" href="/problems/{{ user.username }}/difficuilty/Hard">Hard</a>
+              </ul>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for item in problems %}
+        
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td><a class="nav-link py-1" href="/problem_desc/{{ user.username }}/{{ item.id }}" style="color:white">{{ item.name }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.difficuilty }}</td>
+          </tr>
+        
+        {% endfor %}
+     
+    </tbody>
+  </table>
+
+{% endblock body %}
+
